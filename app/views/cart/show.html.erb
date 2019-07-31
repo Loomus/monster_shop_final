@@ -18,7 +18,14 @@
   <% end %>
   <section id='checkout'>
     <% if current_user %>
-      <%= button_to 'Check Out', '/orders' %>
+      <%= form_tag '/orders' do  %>
+        <h4>Select Address: <%= select_tag 'address', options_for_select(@address) %></h4>
+        <% if @address.empty? %>
+          <%= link_to 'Error: Create an Address to Check Out', no_address_path %>
+        <% else %>
+          <%= submit_tag 'Check Out' %>
+        <% end %>
+      <% end %>
     <% else %>
       <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>

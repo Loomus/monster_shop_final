@@ -1,5 +1,15 @@
-<%= render 'address' %>
-<%= link_to 'Edit', '/profile/edit' %>
-<%= link_to 'Change Password', '/profile/edit_password' %>
-
+<p><%= link_to 'Edit', '/profile/edit' %></p>
+<p><%= link_to 'Change Password', '/profile/edit_password' %></p>
+<p><%= link_to 'Add an Address', '/new_address' %></p>
+<% @address.each do |address| %>
+  <p><%= address.nickname %></p>
+  <p><%= address.address %></p>
+  <%= address.city %>
+  <%= address.state %>
+  <p><%= address.zip %></p>
+  <p><%= link_to 'Edit an Address', "/users/#{@user.id}/addresses/#{address.id}/edit"  %></p>
+  <% if address.shipped_orders == [] && address.pending_orders == [] %>
+    <p><%= link_to 'Delete an Address', "/users/#{@user.id}/addresses/#{address.id}", method: :delete  %></p>
+  <% end %>
+<% end %>
 <%= link_to 'My Orders', '/profile/orders' %>

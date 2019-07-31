@@ -1,27 +1,28 @@
 <%= form_for @user do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<p>  <%= f.label :name %>
+  <%= f.text_field :name %></p>
 
-  <%= f.label :address %>
-  <%= f.text_field :address %>
+  <p><%= f.label :email %>
+  <%= f.email_field :email %></p>
 
-  <%= f.label :city %>
-  <%= f.text_field :city %>
+<p><%= f.label :password %>
+  <%= f.password_field :password %></p>
 
-  <%= f.label :state %>
-  <%= f.text_field :state %>
+  <p><%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %></p>
 
-  <%= f.label :zip %>
-  <%= f.text_field :zip %>
+  <%= f.fields_for :addresses do |a| %>
+  <p><%= a.label :address %>
+    <%= a.text_field :address %></p>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <p><%= a.label :city %>
+    <%= a.text_field :city %></p>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+    <p><%= a.label :state %>
+    <%= a.text_field :state %></p>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-
+    <p><%= a.label :zip %>
+    <%= a.text_field :zip %></p>
+  <% end %>
   <%= f.submit 'Register' %>
 <% end %>

@@ -7,21 +7,37 @@ class User::OrdersController < ApplicationController
 
   def show
     @order = current_user.orders.find(params[:id])
+
   end
 
   def create
-    order = current_user.orders.new
-    order.save
+    @address = Address.find(params[:address])
+    @order = current_user.orders.new(address: @address)
+    @order.save
       cart.items.each do |item|
-        order.order_items.create({
+        OrderItem.create({
           item: item,
           quantity: cart.count_of(item.id),
-          price: item.price
+          price: item.price,
+          order: @order
           })
       end
     session.delete(:cart)
     flash[:notice] = "Order created successfully!"
     redirect_to '/profile/orders'
+  end
+
+  def edit
+    @order = Order.find(params[:id])
+    @address = current_user.address_options
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @order.update(address_id: params[:address])
+    flash[:notice] = "Order Address has been Updated!"
+    redirect_to '/profile/orders'
+    # binding.pry
   end
 
   def cancel

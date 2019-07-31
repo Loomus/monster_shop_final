@@ -1,0 +1,6 @@
+<h2>Change Order Address</h2>
+
+<%= form_for @order do |f| %>
+  <h4>Select Address: <%= f.select 'address', options_for_select(@address) %></h4>
+  <%= f.submit 'Edit' %>
+<% end %>

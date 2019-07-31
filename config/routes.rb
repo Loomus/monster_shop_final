@@ -24,10 +24,21 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/edit_password', to: 'users#edit_password'
+  get '/orders/:id/edit/', to: 'user/orders#edit'
+  patch '/orders/:id', to: 'user/orders#update', as: :order
   post '/orders', to: 'user/orders#create'
   get '/profile/orders', to: 'user/orders#index'
   get '/profile/orders/:id', to: 'user/orders#show'
   delete '/profile/orders/:id', to: 'user/orders#cancel'
+
+  resources :users do
+    resources :addresses, only: [:edit, :update, :destroy]
+  end
+
+  get '/new_address', to: 'addresses#new', as: :new_address
+  post '/addresses', to: 'addresses#create', as: :addresses
+  get '/address/:id/edit', to: 'addresses#edit'
+  get '/address/no_address', to: 'addresses#no_address', as: :no_address
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'

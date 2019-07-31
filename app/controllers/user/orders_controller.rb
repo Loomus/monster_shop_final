@@ -34,10 +34,9 @@ class User::OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.update(address_id: params[:address])
+    @order.update(address_id: params[:order][:address]) 
     flash[:notice] = "Order Address has been Updated!"
     redirect_to '/profile/orders'
-    # binding.pry
   end
 
   def cancel

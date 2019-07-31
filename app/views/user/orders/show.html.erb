@@ -2,9 +2,14 @@
 <p>Created On: <%= @order.created_at %></p>
 <p>Updated On: <%= @order.updated_at %></p>
 <p>Status: <%= @order.status %></p>
+<p>Address Ordered To: <%= @order.address.nickname %></p>
+<p><%= @order.address.address %></p>
+<p><%= @order.address.city %>, <%= @order.address.state %></p>
+<p><%= @order.address.zip %></p>
 <p><%= @order.count_of_items %> items</p>
 <p>Total: <%= number_to_currency(@order.grand_total) %></p>
 <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :delete if @order.pending? %>
+<%= button_to 'Edit Order Address', "/orders/#{@order.id}/edit", method: :get if @order.pending? %>
 
 <h2>Order Items</h2>
 <% @order.order_items.each do |order_item| %>
